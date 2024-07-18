@@ -1,0 +1,6 @@
+﻿services:
+  geolearn.api:
+    image: geolearn.api
+    build:
+      context: .
+      dockerfile: GeoLearn.Api/Dockerfile

@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLearn.API", "GeoLearn.API\GeoLearn.API.csproj", "{7FF48CD2-1A4D-4C76-AAAF-526735154A16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3AFF4B37-BBAB-4C05-8498-A55588729A83}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLearn.Application", "GeoLearn.Application\GeoLearn.Application.csproj", "{DACFFEFD-65D5-4952-86A7-38221A0631B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLearn.Domain", "GeoLearn.Domain\GeoLearn.Domain.csproj", "{3696ECC8-D62E-46C9-8438-68FCD56DD907}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLearn.Infrastructure", "GeoLearn.Infrastructure\GeoLearn.Infrastructure.csproj", "{C7E8684D-D7F8-4D7C-9FB8-8D989E489E52}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FF48CD2-1A4D-4C76-AAAF-526735154A16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FF48CD2-1A4D-4C76-AAAF-526735154A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FF48CD2-1A4D-4C76-AAAF-526735154A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FF48CD2-1A4D-4C76-AAAF-526735154A16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DACFFEFD-65D5-4952-86A7-38221A0631B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DACFFEFD-65D5-4952-86A7-38221A0631B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DACFFEFD-65D5-4952-86A7-38221A0631B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DACFFEFD-65D5-4952-86A7-38221A0631B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3696ECC8-D62E-46C9-8438-68FCD56DD907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3696ECC8-D62E-46C9-8438-68FCD56DD907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3696ECC8-D62E-46C9-8438-68FCD56DD907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3696ECC8-D62E-46C9-8438-68FCD56DD907}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7E8684D-D7F8-4D7C-9FB8-8D989E489E52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7E8684D-D7F8-4D7C-9FB8-8D989E489E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7E8684D-D7F8-4D7C-9FB8-8D989E489E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7E8684D-D7F8-4D7C-9FB8-8D989E489E52}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
