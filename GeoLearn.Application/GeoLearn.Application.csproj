@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\GeoLearn.Domain\GeoLearn.Domain.csproj" />
+      <ProjectReference Include="..\GeoLearn.Infrastructure\GeoLearn.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
