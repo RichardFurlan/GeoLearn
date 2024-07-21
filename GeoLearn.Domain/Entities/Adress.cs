@@ -1,8 +1,10 @@
 namespace GeoLearn.Domain.Entities;
 
-public record Adress(
-    string Street,
-    string City,
-    string State,
-    string Country,
-    string ZipCode);
+public record Address
+{
+    public string Street { get; init; }
+    public string City { get; init; }
+    public string State { get; init; }
+    public string Country { get; init; }
+    public string ZipCode { get; init; }
+}
