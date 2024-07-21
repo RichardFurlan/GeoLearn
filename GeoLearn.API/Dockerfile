@@ -7,8 +7,8 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["GeoLearn.Api/GeoLearn.Api.csproj", "GeoLearn.Api/"]
-RUN dotnet restore "GeoLearn.API/GeoLearn.Api.csproj"
+COPY ["GeoLearn.API/GeoLearn.API.csproj", "GeoLearn.API/"]
+RUN dotnet restore "GeoLearn.API/GeoLearn.API.csproj"
 COPY . .
 WORKDIR "/src/GeoLearn.Api"
 RUN dotnet build "GeoLearn.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
