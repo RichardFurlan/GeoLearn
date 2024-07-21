@@ -10,7 +10,7 @@ WORKDIR /src
 COPY ["GeoLearn.API/GeoLearn.API.csproj", "GeoLearn.API/"]
 RUN dotnet restore "GeoLearn.API/GeoLearn.API.csproj"
 COPY . .
-WORKDIR "/src/GeoLearn.Api"
+WORKDIR "/src/GeoLearn.API"
 RUN dotnet build "GeoLearn.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
