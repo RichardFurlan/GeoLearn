@@ -9,7 +9,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["GeoLearn.API/GeoLearn.API.csproj", "GeoLearn.API/"]
 COPY ["GeoLearn.Application/GeoLearn.Application.csproj", "GeoLearn.Application/"]
-COPY ["GeoLearn.Infrastructure/GeoLearn.Infrastructure.csproj", "GeoLearn.Infrastructure/"]
+COPY ["GeoLearn.Infra/GeoLearn.Infra.csproj", "GeoLearn.Infra/"]
 RUN dotnet restore "GeoLearn.API/GeoLearn.API.csproj"
 COPY . .
 WORKDIR "/src/GeoLearn.API"
