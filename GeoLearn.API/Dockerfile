@@ -8,6 +8,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["GeoLearn.API/GeoLearn.API.csproj", "GeoLearn.API/"]
+COPY ["GeoLearn.Application/GeoLearn.Application.csproj", "GeoLearn.Application/"]
+COPY ["GeoLearn.Infrastructure/GeoLearn.Infrastructure.csproj", "GeoLearn.Infrastructure/"]
 RUN dotnet restore "GeoLearn.API/GeoLearn.API.csproj"
 COPY . .
 WORKDIR "/src/GeoLearn.API"
