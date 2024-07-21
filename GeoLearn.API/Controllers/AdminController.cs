@@ -1,3 +1,5 @@
+using GeoLearn.Application.Application.Admin;
+using GeoLearn.Application.Application.Admin.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeoLearn.Api.Controllers;
@@ -5,6 +7,11 @@ namespace GeoLearn.Api.Controllers;
 [Route("api/admin")]
 public class AdminController : ControllerBase
 {
+    private readonly IAplicAdmin _aplicAdmin;
+    public AdminController(IAplicAdmin aplicAdmin)
+    {
+        _aplicAdmin = aplicAdmin;
+    }
     [HttpGet("quizzes")]
     public IActionResult GetAllQuizzes()
     {
@@ -15,6 +22,21 @@ public class AdminController : ControllerBase
     public IActionResult GetQuiz(int id)
     {
         return Ok();
+    }
+    
+    [HttpPost("quizzes/generate-qa")]
+    public async Task<IActionResult> GenerateQuestionAndAnswers([FromBody] QuizGenerateAIDto dto)
+    {
+        try
+        {
+            var viewModel = await _aplicAdmin.GenerateQuizQuestionAndAnswer(dto);
+            return Ok(viewModel);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     [HttpPost("quizzes")]
