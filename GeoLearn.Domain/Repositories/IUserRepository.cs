@@ -1,6 +1,8 @@
+using GeoLearn.Domain.Entities;
+
 namespace GeoLearn.Domain.Repositories;
 
-public class IUserRepository
+public interface IUserRepository
 {
-    
+    Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash);
 }

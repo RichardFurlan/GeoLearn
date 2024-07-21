@@ -1,26 +1,33 @@
 using GeoLearn.Application.Application.DTO;
 using GeoLearn.Domain.Entities;
+using GeoLearn.Domain.Repositories;
+using GeoLearn.Domain.Services;
 using GeoLearn.Infrastructure.Persistence;
 
 namespace GeoLearn.Application.Application;
 
 public class AplicAuth : IAplicAuth
 {
+    private readonly IUserRepository _userRepository;
     private readonly GeoLearnDbContext _dbContext;
+    private readonly IAuthService _authService;
     
-    public AplicAuth(GeoLearnDbContext dbContext)
+    public AplicAuth(IUserRepository userRepository, IAuthService authService, GeoLearnDbContext dbContext)
     {
+        _userRepository = userRepository;
+        _authService = authService;
         _dbContext = dbContext;
     }
     public async Task<int> RegisterUser(RegisterUserDto registerUserDto)
     {
         ValidarSenha(registerUserDto.Password, registerUserDto.PasswordConfirm);
+        var passwordHash = _authService.ComputeSha256Hash(registerUserDto.Password);
         
         var user = new User(
             registerUserDto.FirstName,
             registerUserDto.LastName,
             registerUserDto.Email,
-            registerUserDto.Password
+            passwordHash
             );
 
         await _dbContext.Users.AddAsync(user);
@@ -57,8 +64,19 @@ public class AplicAuth : IAplicAuth
         }
     }
 
-    public Task LoginUser(LoginUserDto loginUserDto)
+    public async Task<LoginUserViewModel> LoginUser(LoginUserDto loginUserDto)
     {
-        throw new NotImplementedException();
+        var passwordHash = _authService.ComputeSha256Hash(loginUserDto.Password);
+
+        var user = await _userRepository.GetUserByEmailAndPasswordAsync(loginUserDto.Email, passwordHash);
+        
+        if (user == null)
+        {
+            return null;
+        }
+
+        var token = _authService.GenerateJwtToken(user.Email);
+
+        return new LoginUserViewModel(user.Email, token);
     }
 }

@@ -5,5 +5,5 @@ namespace GeoLearn.Application.Application;
 public interface IAplicAuth
 {
     Task<int> RegisterUser(RegisterUserDto registerUserDto);
-    Task LoginUser(LoginUserDto loginUserDto);
+    Task<LoginUserViewModel> LoginUser(LoginUserDto loginUserDto);
 }

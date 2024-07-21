@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using GeoLearn.Domain.Services;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +15,7 @@ public class AuthService : IAuthService
     {
         _configuration = configuration;
     }
-    public string GenerateJwtToken(string email, string role)
+    public string GenerateJwtToken(string email)
     {
         var issuer = _configuration["Jtw:Issuer"];
         var audience = _configuration["Jtw:Audience"];
@@ -22,19 +23,13 @@ public class AuthService : IAuthService
 
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-        var claims = new List<Claim>
-        {
-            new Claim("userName", email),
-            new Claim(ClaimTypes.Role, role)
-        };
+        
 
         var token = new JwtSecurityToken(
             issuer: issuer, 
             audience: audience, 
             expires: DateTime.Now.AddHours(8), 
-            signingCredentials: credentials,
-            claims: claims);
+            signingCredentials: credentials);
 
         var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -42,5 +37,23 @@ public class AuthService : IAuthService
 
         return stringToken;
 
+    }
+
+    public string ComputeSha256Hash(string password)
+    {
+        using (SHA256 sha256Hash = SHA256.Create())
+        {
+            // ComputeHash - retorna byte array
+            byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+            // Converte byte array para string
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                builder.Append(bytes[i].ToString("X2")); // X2 faz com que seja convertido em representação hexadecimal
+            }
+
+            return builder.ToString();
+        }
     }
 }
