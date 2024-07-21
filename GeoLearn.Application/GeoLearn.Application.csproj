@@ -8,7 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\GeoLearn.Domain\GeoLearn.Domain.csproj" />
-      <ProjectReference Include="..\GeoLearn.Infrastructure\GeoLearn.Infrastructure.csproj" />
+      <ProjectReference Include="..\GeoLearn.Infra\GeoLearn.Infra.csproj" />
     </ItemGroup>
 
 </Project>

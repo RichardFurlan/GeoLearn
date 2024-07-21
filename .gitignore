@@ -499,3 +499,8 @@ packages/
 
 # Pasta e arquivos do Rider IDE
 .idea/
+
+# Exclude appsettings files with sensitive information
+appsettings.Development.json
+appsettings.Production.json
+.env

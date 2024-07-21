@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLearn.Application", "Geo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLearn.Domain", "GeoLearn.Domain\GeoLearn.Domain.csproj", "{3696ECC8-D62E-46C9-8438-68FCD56DD907}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLearn.Infrastructure", "GeoLearn.Infrastructure\GeoLearn.Infrastructure.csproj", "{C7E8684D-D7F8-4D7C-9FB8-8D989E489E52}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLearn.Infra", "GeoLearn.Infra\GeoLearn.Infra.csproj", "{C7E8684D-D7F8-4D7C-9FB8-8D989E489E52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
