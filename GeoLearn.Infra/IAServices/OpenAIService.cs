@@ -9,11 +9,15 @@ public class OpenAIService : IOpenAIService
 {
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
-    
-    public OpenAIService(HttpClient httpClient, IOptions<OpenAIOptions> options)
+
+    public OpenAIService(HttpClient httpClient)
     {
         _httpClient = httpClient;
-        _apiKey = options.Value.ApiKey;
+        _apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+        if (string.IsNullOrEmpty(_apiKey))
+        {
+            throw new InvalidOperationException("API Key for OpenAI is not configured.");
+        }
         _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_apiKey}");
     }
 
