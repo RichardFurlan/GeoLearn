@@ -6,7 +6,6 @@ public class BaseEntity
     {
         Inactive = false;
         CreatedAt = DateTime.Now;
-        UpdateAt = DateTime.Now;
     }
 
     public int Id { get; private set; }

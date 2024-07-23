@@ -1,15 +1,21 @@
 using GeoLearn.Application.Application.Admin.DTO;
 using GeoLearn.Domain.Entities;
+using GeoLearn.Domain.Repositories;
 using GeoLearn.Infrastructure.IAServices;
+using GeoLearn.Infrastructure.Persistence;
 
 namespace GeoLearn.Application.Application.Admin;
 
 public class AplicAdmin : IAplicAdmin
 {
     private readonly IOpenAIService _aiService;
-    public AplicAdmin(IOpenAIService aiService)
+    private readonly GeoLearnDbContext _dbContext;
+    private readonly IQuizRepository _quizRepository;
+    public AplicAdmin(IOpenAIService aiService, GeoLearnDbContext dbContext, IQuizRepository quizRepository)
     {
         _aiService = aiService;
+        _dbContext = dbContext;
+        _quizRepository = quizRepository;
     }
     public async Task<QuizGenerateAIDtoViewModel> GenerateQuizQuestionAndAnswer(QuizGenerateAIDto dto)
     {
@@ -52,5 +58,30 @@ public class AplicAdmin : IAplicAdmin
         var viewModel = new QuizGenerateAIDtoViewModel(questionResponde.Question, questionResponde.CorrectAnswer, questionResponde.IncorrectAnswers);
 
         return viewModel;
+    }
+
+    public async Task<int> CreateQuizAndAnswer(CreateQuizQuestionDto dto)
+    {
+        var quiz = await _quizRepository.GetDetailsByIdAsync(dto.QuizId);
+        if (quiz == null)
+        {
+            throw new Exception("Quiz not found");
+        }
+        
+        var quizQuestion = new QuizQuestion(dto.QuizQuestion, dto.Dificuldade, dto.Experience);
+
+        foreach (var option in dto.Options)
+        {
+            bool isCorrect = option == dto.CorrectAnswer;
+            var quizOption = new QuizOption(quizQuestion.Id, option, isCorrect);
+            quizQuestion.AddOption(quizOption);
+        }
+        
+        quiz.AddQuestion(quizQuestion);
+        
+        _dbContext.QuizQuestions.Add(quizQuestion);
+        await _dbContext.SaveChangesAsync();
+        
+        return quizQuestion.Id;
     }
 }

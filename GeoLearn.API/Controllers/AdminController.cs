@@ -40,9 +40,18 @@ public class AdminController : ControllerBase
     }
 
     [HttpPost("quizzes")]
-    public IActionResult CreateQuiz()
+    public async Task<IActionResult> CreateQuiz([FromBody] CreateQuizQuestionDto dto)
     {
-        return Ok();
+        try
+        {
+            var quizQuestionId = await _aplicAdmin.CreateQuizAndAnswer(dto);
+            return Ok(quizQuestionId);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     [HttpPut("quizzes/{id}")]

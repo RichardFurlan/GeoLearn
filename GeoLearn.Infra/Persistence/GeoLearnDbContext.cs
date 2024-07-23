@@ -12,6 +12,9 @@ public class GeoLearnDbContext : DbContext
     }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Quiz> Quizzes{ get; set; }
+    public DbSet<QuizOption> QuizOptions {get; set;}
+    public DbSet<QuizQuestion> QuizQuestions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
