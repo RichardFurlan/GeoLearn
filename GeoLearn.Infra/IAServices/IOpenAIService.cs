@@ -1,7 +1,6 @@
-using GeoLearn.Domain.Entities;
 using GeoLearn.Domain.Model;
 
-namespace GeoLearn.Infrastructure.IAServices;
+namespace GeoLearn.Infra.IAServices;
 
 public interface IOpenAIService
 {

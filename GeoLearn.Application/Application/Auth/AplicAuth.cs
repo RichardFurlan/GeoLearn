@@ -2,9 +2,9 @@ using GeoLearn.Application.Application.DTO;
 using GeoLearn.Domain.Entities;
 using GeoLearn.Domain.Repositories;
 using GeoLearn.Domain.Services;
-using GeoLearn.Infrastructure.Persistence;
+using GeoLearn.Infra.Persistence;
 
-namespace GeoLearn.Application.Application;
+namespace GeoLearn.Application.Application.Auth;
 
 public class AplicAuth : IAplicAuth
 {

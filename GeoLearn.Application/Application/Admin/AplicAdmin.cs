@@ -1,8 +1,8 @@
 using GeoLearn.Application.Application.Admin.DTO;
 using GeoLearn.Domain.Entities;
 using GeoLearn.Domain.Repositories;
-using GeoLearn.Infrastructure.IAServices;
-using GeoLearn.Infrastructure.Persistence;
+using GeoLearn.Infra.IAServices;
+using GeoLearn.Infra.Persistence;
 
 namespace GeoLearn.Application.Application.Admin;
 
