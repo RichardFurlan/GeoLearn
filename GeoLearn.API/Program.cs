@@ -33,16 +33,15 @@ builder.Services.AddHttpClient<OpenAIService>(client =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "GeoLearn API V1");
+    c.RoutePrefix = string.Empty; // This makes Swagger UI available at the app's root
+});
 
 app.UseHttpsRedirection();
-
-app.UseHsts(); 
+app.UseHsts();
 
 app.Use(async (context, next) =>
 {
@@ -62,7 +61,7 @@ app.UseCors(corsPolicyBuilder => corsPolicyBuilder
     .AllowAnyMethod()
     .AllowAnyHeader());
 
-app.UseAuthentication();;
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
