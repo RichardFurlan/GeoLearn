@@ -1,12 +1,11 @@
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using GeoLearn.Domain.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace GeoLearn.Infrastructure.AuthServices;
+namespace GeoLearn.Infra.AuthServices;
 
 public class AuthService : IAuthService
 {

@@ -2,7 +2,7 @@ using System.Reflection;
 using GeoLearn.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace GeoLearn.Infrastructure.Persistence;
+namespace GeoLearn.Infra.Persistence;
 
 public class GeoLearnDbContext : DbContext
 {

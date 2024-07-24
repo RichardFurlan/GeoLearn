@@ -1,9 +1,7 @@
 using System.Net.Http.Json;
-using GeoLearn.Domain.Entities;
 using GeoLearn.Domain.Model;
-using Microsoft.Extensions.Options;
 
-namespace GeoLearn.Infrastructure.IAServices;
+namespace GeoLearn.Infra.IAServices;
 
 public class OpenAIService : IOpenAIService
 {

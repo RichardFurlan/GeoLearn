@@ -2,7 +2,7 @@ using GeoLearn.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GeoLearn.Infrastructure.Persistence;
+namespace GeoLearn.Infra.Persistence;
 
 public class UserConfigurations : IEntityTypeConfiguration<User>
 {

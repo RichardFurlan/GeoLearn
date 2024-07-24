@@ -1,11 +1,12 @@
 using DotNetEnv;
 using GeoLearn.Application.Application;
+using GeoLearn.Application.Application.Auth;
 using GeoLearn.Domain.Repositories;
 using GeoLearn.Domain.Services;
-using GeoLearn.Infrastructure.AuthServices;
-using GeoLearn.Infrastructure.IAServices;
-using GeoLearn.Infrastructure.Persistence;
-using GeoLearn.Infrastructure.Persistence.Repositories;
+using GeoLearn.Infra.AuthServices;
+using GeoLearn.Infra.IAServices;
+using GeoLearn.Infra.Persistence;
+using GeoLearn.Infra.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -34,12 +35,34 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
 
+app.UseHsts(); 
+
+app.Use(async (context, next) =>
+{
+    if (context.Request.IsHttps || context.Request.Host.Host.Contains("localhost"))
+    {
+        await next();
+    }
+    else
+    {
+        var httpsUrl = $"https://{context.Request.Host}{context.Request.Path}{context.Request.QueryString}";
+        context.Response.Redirect(httpsUrl);
+    }
+});
+
+app.UseCors(corsPolicyBuilder => corsPolicyBuilder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
+app.UseAuthentication();;
 app.UseAuthorization();
 
 app.MapControllers();

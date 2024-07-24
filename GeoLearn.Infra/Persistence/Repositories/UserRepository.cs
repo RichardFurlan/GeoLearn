@@ -2,7 +2,7 @@ using GeoLearn.Domain.Entities;
 using GeoLearn.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace GeoLearn.Infrastructure.Persistence.Repositories;
+namespace GeoLearn.Infra.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {
