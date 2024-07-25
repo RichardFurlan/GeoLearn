@@ -52,29 +52,12 @@ app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "GeoLearn API V1");
-    c.RoutePrefix = string.Empty; // This makes Swagger UI available at the app's root
+    c.RoutePrefix = string.Empty;
 });
 
 app.UseHttpsRedirection();
-app.UseHsts();
 
-app.Use(async (context, next) =>
-{
-    if (context.Request.IsHttps || context.Request.Host.Host.Contains("localhost"))
-    {
-        await next();
-    }
-    else
-    {
-        var httpsUrl = $"https://{context.Request.Host}{context.Request.Path}{context.Request.QueryString}";
-        context.Response.Redirect(httpsUrl);
-    }
-});
-
-app.UseCors(corsPolicyBuilder => corsPolicyBuilder
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader());
+app.UseCors("DefaultPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
