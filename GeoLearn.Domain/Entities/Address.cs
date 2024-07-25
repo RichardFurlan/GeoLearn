@@ -2,6 +2,7 @@ namespace GeoLearn.Domain.Entities;
 
 public record Address
 {
+    public int Id { get; init; }
     public string Street { get; init; }
     public string City { get; init; }
     public string State { get; init; }
