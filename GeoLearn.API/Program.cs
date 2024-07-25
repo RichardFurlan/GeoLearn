@@ -22,12 +22,27 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAplicAuth, AplicAuth>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+string? connectionString;
+
+if (builder.Environment.IsDevelopment())
+{
+    connectionString = builder.Configuration.GetConnectionString("Database");
+}
+else
+{
+    // Use environment variables in production
+    var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+    connectionString = databaseUrl ?? builder.Configuration.GetConnectionString("Database");
+}
 builder.Services.AddDbContext<GeoLearnDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
+    options.UseNpgsql(connectionString));
 builder.Services.AddHttpClient<OpenAIService>(client =>
 {
     client.BaseAddress = new Uri("https://api.openai.com/v1/"); // Configura o endpoint base, se necessário
 });
+
+
 
 
 var app = builder.Build();

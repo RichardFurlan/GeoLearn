@@ -2,9 +2,9 @@ namespace GeoLearn.Domain.Entities;
 
 public class User : BaseEntity
 {
-    public User(string firtName, string lastName, string email, string passwordHash)
+    public User(string firstName, string lastName, string email, string passwordHash)
     {
-        FirstName = firtName;
+        FirstName = firstName;
         LastName = lastName;
         Email = email;
         Adress = new Address();
