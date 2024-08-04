@@ -1,3 +1,4 @@
+using GeoLearn.Application;
 using GeoLearn.Application.Application.Admin;
 using GeoLearn.Application.Application.Admin.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -12,25 +13,44 @@ public class AdminController : ControllerBase
     {
         _aplicAdmin = aplicAdmin;
     }
-    [HttpGet("quizzes")]
-    public IActionResult GetAllQuizzes()
-    {
-        return Ok();
-    }
-
-    [HttpGet("quizzes/{id}")]
-    public IActionResult GetQuiz(int id)
-    {
-        return Ok();
-    }
     
-    [HttpPost("quizzes/generate-qa")]
-    public async Task<IActionResult> GenerateQuestionAndAnswers([FromBody] QuizGenerateAIDto dto)
+    [HttpGet("quizzes")]
+    public async Task<IActionResult> GetAllQuizzes()
     {
         try
         {
-            var viewModel = await _aplicAdmin.GenerateQuizQuestionAndAnswer(dto);
-            return Ok(viewModel);
+            var quizDetails = await _aplicAdmin.GetAllQuizzes();
+            return Ok(quizDetails);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    [HttpGet("quizzes/{id}")]
+    public async Task<IActionResult> GetQuiz(int id)
+    {
+        try
+        {
+            var quizDetails = await _aplicAdmin.GetQuiz(id);
+            return Ok(quizDetails);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+    
+    [HttpGet("quizzes/questions/{id}")]
+    public async Task<IActionResult> GetQuizQuestion(int id)
+    {
+        try
+        {
+            var quizQustionDetails = await _aplicAdmin.GetQuizQuestion(id);
+            return Ok(quizQustionDetails);
         }
         catch (Exception e)
         {
@@ -40,11 +60,26 @@ public class AdminController : ControllerBase
     }
 
     [HttpPost("quizzes")]
-    public async Task<IActionResult> CreateQuiz([FromBody] CreateQuizQuestionDto dto)
+    public async Task<IActionResult> CreateQuiz([FromBody] CreateQuizDTO dto)
     {
         try
         {
-            var quizQuestionId = await _aplicAdmin.CreateQuizAndAnswer(dto);
+            var quizId = await _aplicAdmin.CreateQuiz(dto);
+            return Ok(quizId);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+    
+    [HttpPost("quizzes/questions")]
+    public async Task<IActionResult> CreateQuizQuestion([FromBody] CreateQuizQuestionDTO dto)
+    {
+        try
+        {
+            var quizQuestionId = await _aplicAdmin.CreateQuizQuestion(dto);
             return Ok(quizQuestionId);
         }
         catch (Exception e)
@@ -55,44 +90,108 @@ public class AdminController : ControllerBase
     }
 
     [HttpPut("quizzes/{id}")]
-    public IActionResult UpdateQuiz(int id)
+    public async Task<IActionResult> UpdateQuiz(UpdateQuizDTO dto)
     {
-        return Ok();
+        try
+        {
+           await _aplicAdmin.UpdateQuiz(dto.Id, dto);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     [HttpDelete("quizzes/{id}")]
-    public IActionResult InactivateQuiz(int id)
+    public async Task<IActionResult> InactivateQuiz(int id)
     {
-        return Ok();
+        try
+        {
+            await _aplicAdmin.InactivateQuiz(id);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     [HttpGet("users")]
-    public IActionResult GetAllUsers()
+    public async Task<IActionResult> GetAllUsers()
     {
-        return Ok();
+        try
+        {
+            var usersViewModel = await _aplicAdmin.GetAllUsers();
+
+            return Ok(usersViewModel);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     [HttpGet("users/{id}")]
-    public IActionResult GetUser(int id)
+    public async Task<IActionResult> GetUser(int id)
     {
-        return Ok();
+        try
+        {
+            var userViewModel = await _aplicAdmin.GetUser(id);
+            return Ok(userViewModel);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     [HttpPost("users")]
-    public IActionResult CreateUser()
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO dto)
     {
-        return Ok();
+        try
+        {
+            var userId = await _aplicAdmin.CreateUser(dto);
+            return Ok(userId);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
-    [HttpPut("users/{id}")]
-    public IActionResult UpdateUser(int id)
+    [HttpPut("users")]
+    public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDTO dto)
     {
-        return Ok();
+        try
+        {
+            await _aplicAdmin.UpdateUser(dto);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     [HttpDelete("users/{id}")]
-    public IActionResult InactivateUser(int id)
+    public async Task<IActionResult> InactivateUser(int id)
     {
-        return Ok();
+        try
+        {
+            await _aplicAdmin.InactivateUser(id);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

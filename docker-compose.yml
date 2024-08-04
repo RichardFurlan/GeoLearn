@@ -6,7 +6,7 @@
       dockerfile: GeoLearn.API/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__DefaultConnection=Host=postgres;Database=geolearn;Username=app;Password=geolearnht2024
+      - ConnectionStrings__Database=Host=db;Port=5432;Database=geolearn;Username=postgres;Password=123456
     depends_on:
       - postgres
     ports:
@@ -16,8 +16,8 @@
     image: postgres:15
     environment:
       - POSTGRES_DB=geolearn
-      - POSTGRES_USER=app
-      - POSTGRES_PASSWORD=geolearnht2024
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
     ports:
       - "5432:5432"
     volumes:

@@ -20,7 +20,7 @@ public class AplicAuth : IAplicAuth
     }
     public async Task<int> RegisterUser(RegisterUserDto registerUserDto)
     {
-        ValidarSenha(registerUserDto.Password, registerUserDto.PasswordConfirm);
+        _authService.ValidarSenha(registerUserDto.Password, registerUserDto.PasswordConfirm);
         var passwordHash = _authService.ComputeSha256Hash(registerUserDto.Password);
         
         var user = new User(
@@ -35,35 +35,7 @@ public class AplicAuth : IAplicAuth
 
         return user.Id;
     }
-
-    private void ValidarSenha(string password, string passwordConfirm)
-    {
-        if (password != passwordConfirm)
-        {
-            throw new ArgumentException("As senhas não são idênticas");
-        }
-
-        if (string.IsNullOrWhiteSpace(password))
-        {
-            throw new ArgumentException("A senha não pode estar em branco.");
-        }
-
-        if (password.Length < 6)
-        {
-            throw new ArgumentException("A senha deve ter pelo menos 6 caracteres.");
-        }
-
-        if (!password.Any(char.IsDigit))
-        {
-            throw new ArgumentException("A senha deve conter pelo menos um número");
-        }
-        
-        if (!password.Any(char.IsLetter))
-        {
-            throw new ArgumentException("A senha deve conter pelo menos uma letra.");
-        }
-    }
-
+    
     public async Task<LoginUserViewModel> LoginUser(LoginUserDto loginUserDto)
     {
         var passwordHash = _authService.ComputeSha256Hash(loginUserDto.Password);
