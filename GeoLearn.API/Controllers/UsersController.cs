@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GeoLearn.Api.Controllers;
 [ApiController]
-[Route("api/users")]
+[Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
     [HttpGet("{id}")]
