@@ -1,11 +1,11 @@
 using GeoLearn.Application;
-using GeoLearn.Application.Application.Admin;
-using GeoLearn.Application.Application.Admin.DTO;
+using GeoLearn.Application.Admin;
+using GeoLearn.Application.Admin.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeoLearn.Api.Controllers;
 [ApiController]
-[Route("api/admin")]
+[Route("api/[controller]")]
 public class AdminController : ControllerBase
 {
     private readonly IAplicAdmin _aplicAdmin;

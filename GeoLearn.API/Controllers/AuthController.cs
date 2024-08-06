@@ -1,10 +1,10 @@
-using GeoLearn.Application.Application;
-using GeoLearn.Application.Application.DTO;
+using GeoLearn.Application.Auth;
+using GeoLearn.Application.Auth.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeoLearn.Api.Controllers;
 [ApiController]
-[Route("api")]
+[Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
     #region ctor
@@ -17,7 +17,7 @@ public class AuthController : ControllerBase
     
     #endregion
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterUserDto dto)
+    public async Task<IActionResult> Register([FromBody] RegisterUserDTO dto)
     {
         try
         {
@@ -32,7 +32,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginUserDto dto)
+    public async Task<IActionResult> Login([FromBody] LoginUserDTO dto)
     {
         try
         {
