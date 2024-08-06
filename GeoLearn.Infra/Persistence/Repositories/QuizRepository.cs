@@ -15,9 +15,18 @@ public class QuizRepository : IQuizRepository
     public async Task<Quiz?> GetDetailsByIdAsync(int id)
     {
         return await _dbContext.Quizzes
+            .Include(q => q.Questions)
+            .ThenInclude(qq => qq.Options)
             .SingleOrDefaultAsync(q => q.Id == id);
     }
-    
+
+    public IQueryable<Quiz?> GetAllQuizzes()
+    {
+        return _dbContext.Quizzes
+            .Include(q => q.Questions)
+            .ThenInclude(q => q.Options);
+    }
+
     public async Task UpdateAsync(Quiz quiz)
     {
         _dbContext.Quizzes.Update(quiz);

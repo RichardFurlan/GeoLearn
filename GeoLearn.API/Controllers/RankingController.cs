@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GeoLearn.Api.Controllers;
 [ApiController]
-[Route("api")]
+[Route("api/[controller]")]
 public class RankingController : ControllerBase
 {
-    [HttpGet("ranking")]
+    [HttpGet()]
     public IActionResult GetRanking()
     {
         return Ok();

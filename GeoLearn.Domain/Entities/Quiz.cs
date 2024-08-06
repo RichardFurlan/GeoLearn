@@ -1,3 +1,5 @@
+using GeoLearn.Domain.Enums;
+
 namespace GeoLearn.Domain.Entities;
 
 public class Quiz : BaseEntity
@@ -7,8 +9,8 @@ public class Quiz : BaseEntity
         Title = title;
         Description = description;
         Category = category;
-        
-        Questions = new List<QuizQuestion>(); 
+
+        Questions = new List<QuizQuestion>();
         SetDateUpdate();
     }
     public string Title { get; private set; }

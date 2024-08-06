@@ -1,4 +1,5 @@
 using System.Reflection;
+using GeoLearn.Domain;
 using GeoLearn.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,8 @@ public class GeoLearnDbContext : DbContext
     public DbSet<Quiz> Quizzes{ get; set; }
     public DbSet<QuizOption> QuizOptions {get; set;}
     public DbSet<QuizQuestion> QuizQuestions { get; set; }
+    public DbSet<QuizAnswer> QuizAnswers { get; set; }
+    public DbSet<QuizOptionAnswer> QuizOptionAnswers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

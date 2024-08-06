@@ -1,3 +1,5 @@
+using GeoLearn.Domain.Enums;
+
 namespace GeoLearn.Domain.Entities;
 
 public class QuizQuestion : BaseEntity

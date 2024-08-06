@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GeoLearn.Api.Controllers;
 [ApiController]
-[Route("api/quizzes")]
+[Route("api/[controller]")]
 public class QuizzesController : ControllerBase
 {
     [HttpGet]

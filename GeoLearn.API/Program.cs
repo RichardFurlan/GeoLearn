@@ -1,7 +1,6 @@
 using DotNetEnv;
-using GeoLearn.Application.Application;
-using GeoLearn.Application.Application.Admin;
-using GeoLearn.Application.Application.Auth;
+using GeoLearn.Application.Admin;
+using GeoLearn.Application.Auth;
 using GeoLearn.Domain.Repositories;
 using GeoLearn.Domain.Services;
 using GeoLearn.Infra.AuthServices;
@@ -23,7 +22,7 @@ builder.Services.AddScoped<IAplicAuth, AplicAuth>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IAplicAdmin, AplicAdmin>(); 
-builder.Services.AddScoped<IQuizRepository, QuizRepository>(); // ou o repositório apropriado
+builder.Services.AddScoped<IQuizRepository, QuizRepository>();
 
 
 
