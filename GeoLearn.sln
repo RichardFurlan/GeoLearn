@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLearn.Domain", "GeoLearn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLearn.Infra", "GeoLearn.Infra\GeoLearn.Infra.csproj", "{C7E8684D-D7F8-4D7C-9FB8-8D989E489E52}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLearn.Test", "GeoLearn.Test\GeoLearn.Test.csproj", "{CECE366F-EF89-489E-BD9E-9E7C59201E3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,5 +37,9 @@ Global
 		{C7E8684D-D7F8-4D7C-9FB8-8D989E489E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7E8684D-D7F8-4D7C-9FB8-8D989E489E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7E8684D-D7F8-4D7C-9FB8-8D989E489E52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CECE366F-EF89-489E-BD9E-9E7C59201E3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CECE366F-EF89-489E-BD9E-9E7C59201E3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CECE366F-EF89-489E-BD9E-9E7C59201E3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CECE366F-EF89-489E-BD9E-9E7C59201E3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
