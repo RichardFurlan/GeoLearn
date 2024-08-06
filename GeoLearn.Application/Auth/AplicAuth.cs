@@ -1,10 +1,10 @@
-using GeoLearn.Application.Application.DTO;
+using GeoLearn.Application.Auth.DTO;
 using GeoLearn.Domain.Entities;
 using GeoLearn.Domain.Repositories;
 using GeoLearn.Domain.Services;
 using GeoLearn.Infra.Persistence;
 
-namespace GeoLearn.Application.Application.Auth;
+namespace GeoLearn.Application.Auth;
 
 public class AplicAuth : IAplicAuth
 {
@@ -18,7 +18,7 @@ public class AplicAuth : IAplicAuth
         _authService = authService;
         _dbContext = dbContext;
     }
-    public async Task<int> RegisterUser(RegisterUserDto registerUserDto)
+    public async Task<int> RegisterUser(RegisterUserDTO registerUserDto)
     {
         _authService.ValidarSenha(registerUserDto.Password, registerUserDto.PasswordConfirm);
         var passwordHash = _authService.ComputeSha256Hash(registerUserDto.Password);
@@ -36,7 +36,7 @@ public class AplicAuth : IAplicAuth
         return user.Id;
     }
     
-    public async Task<LoginUserViewModel> LoginUser(LoginUserDto loginUserDto)
+    public async Task<LoginUserViewModel> LoginUser(LoginUserDTO loginUserDto)
     {
         var passwordHash = _authService.ComputeSha256Hash(loginUserDto.Password);
 

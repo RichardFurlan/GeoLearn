@@ -1,4 +1,4 @@
-namespace GeoLearn.Application.Application.Admin.DTO;
+namespace GeoLearn.Application.Admin.DTO;
 
 public record CreateUserDTO
 {

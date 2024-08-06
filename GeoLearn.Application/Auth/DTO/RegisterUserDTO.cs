@@ -1,6 +1,6 @@
-namespace GeoLearn.Application.Application.DTO;
+namespace GeoLearn.Application.Auth.DTO;
 
-public record RegisterUserDto
+public record RegisterUserDTO
 {
     public string FirstName { get; init; }
     public string LastName { get; init; }

@@ -1,4 +1,4 @@
-namespace GeoLearn.Domain.Entities;
+namespace GeoLearn.Domain.Enums;
 
 public enum EnumQuestionType
 {

@@ -1,6 +1,7 @@
 using GeoLearn.Domain.Entities;
+using GeoLearn.Domain.ValueObjects;
 
-namespace GeoLearn.Application.Application.Admin.DTO;
+namespace GeoLearn.Application.Admin.DTO;
 
 public record UserViewModel
 {

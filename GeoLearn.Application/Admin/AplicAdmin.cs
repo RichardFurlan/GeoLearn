@@ -1,11 +1,11 @@
-using GeoLearn.Application.Application.Admin.DTO;
+using GeoLearn.Application.Admin.DTO;
 using GeoLearn.Domain.Entities;
 using GeoLearn.Domain.Repositories;
 using GeoLearn.Domain.Services;
 using GeoLearn.Infra.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace GeoLearn.Application.Application.Admin;
+namespace GeoLearn.Application.Admin;
 
 public class AplicAdmin : IAplicAdmin
 {
@@ -53,7 +53,7 @@ public class AplicAdmin : IAplicAdmin
     #region CreateQuiz
     public async Task<int> CreateQuiz(CreateQuizDTO dto)
     {
-        var quiz = new Quiz(dto.Title, dto.Description, dto.Category);
+        var quiz = new Domain.Entities.Quiz(dto.Title, dto.Description, dto.Category);
         
         await _dbContext.Quizzes.AddAsync(quiz);
         await _dbContext.SaveChangesAsync();

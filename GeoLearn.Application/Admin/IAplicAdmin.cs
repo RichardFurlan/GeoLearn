@@ -1,6 +1,6 @@
-using GeoLearn.Application.Application.Admin.DTO;
+using GeoLearn.Application.Admin.DTO;
 
-namespace GeoLearn.Application.Application.Admin;
+namespace GeoLearn.Application.Admin;
 
 public interface IAplicAdmin
 {

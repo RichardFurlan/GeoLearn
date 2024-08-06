@@ -1,4 +1,4 @@
-namespace GeoLearn.Domain.Entities;
+namespace GeoLearn.Domain.ValueObjects;
 
 public record Address
 {

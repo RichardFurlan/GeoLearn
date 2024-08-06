@@ -1,4 +1,4 @@
-namespace GeoLearn.Application.Application.DTO;
+namespace GeoLearn.Application.Auth.DTO;
 
 public record LoginUserViewModel
 {
