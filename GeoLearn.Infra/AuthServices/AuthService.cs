@@ -55,4 +55,33 @@ public class AuthService : IAuthService
             return builder.ToString();
         }
     }
+    
+    public void ValidarSenha(string password, string passwordConfirm)
+    {
+        if (password != passwordConfirm)
+        {
+            throw new ArgumentException("As senhas não são idênticas");
+        }
+
+        if (string.IsNullOrWhiteSpace(password))
+        {
+            throw new ArgumentException("A senha não pode estar em branco.");
+        }
+
+        if (password.Length < 6)
+        {
+            throw new ArgumentException("A senha deve ter pelo menos 6 caracteres.");
+        }
+
+        if (!password.Any(char.IsDigit))
+        {
+            throw new ArgumentException("A senha deve conter pelo menos um número");
+        }
+        
+        if (!password.Any(char.IsLetter))
+        {
+            throw new ArgumentException("A senha deve conter pelo menos uma letra.");
+        }
+    }
+    
 }

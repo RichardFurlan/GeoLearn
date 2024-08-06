@@ -12,4 +12,16 @@ public class BaseEntity
     public bool Inactive { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdateAt { get; private set; }
+
+
+    protected void SetDateUpdate()
+    {
+        UpdateAt = DateTime.Now;
+    }
+
+    public void Inativar()
+    {
+        Inactive = true;
+        SetDateUpdate();
+    }
 }

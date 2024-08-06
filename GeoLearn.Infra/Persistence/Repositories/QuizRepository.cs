@@ -12,10 +12,15 @@ public class QuizRepository : IQuizRepository
     {
         _dbContext = dbContext;
     }
-    public async Task<Quiz> GetDetailsByIdAsync(int id)
+    public async Task<Quiz?> GetDetailsByIdAsync(int id)
     {
         return await _dbContext.Quizzes
-            .Include(q => q.Questions)
             .SingleOrDefaultAsync(q => q.Id == id);
+    }
+    
+    public async Task UpdateAsync(Quiz quiz)
+    {
+        _dbContext.Quizzes.Update(quiz);
+        await _dbContext.SaveChangesAsync();
     }
 }

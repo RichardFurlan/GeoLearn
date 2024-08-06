@@ -1,10 +1,10 @@
 using DotNetEnv;
 using GeoLearn.Application.Application;
+using GeoLearn.Application.Application.Admin;
 using GeoLearn.Application.Application.Auth;
 using GeoLearn.Domain.Repositories;
 using GeoLearn.Domain.Services;
 using GeoLearn.Infra.AuthServices;
-using GeoLearn.Infra.IAServices;
 using GeoLearn.Infra.Persistence;
 using GeoLearn.Infra.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -22,44 +22,31 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAplicAuth, AplicAuth>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAplicAdmin, AplicAdmin>(); 
+builder.Services.AddScoped<IQuizRepository, QuizRepository>(); // ou o repositório apropriado
 
-string? connectionString;
 
-if (builder.Environment.IsDevelopment())
-{
-    connectionString = builder.Configuration.GetConnectionString("Database");
-}
-else
-{
-    // Use environment variables in production
-    var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-    connectionString = databaseUrl ?? builder.Configuration.GetConnectionString("Database");
-}
+
+
+
+    var dataBase = builder.Configuration.GetConnectionString("Database");
 builder.Services.AddDbContext<GeoLearnDbContext>(options =>
-    options.UseNpgsql(connectionString));
-builder.Services.AddHttpClient<OpenAIService>(client =>
-{
-    client.BaseAddress = new Uri("https://api.openai.com/v1/"); // Configura o endpoint base, se necessário
-});
-
+    options.UseNpgsql(dataBase));
 
 
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-app.UseSwagger();
-app.UseSwaggerUI(c =>
+if (app.Environment.IsDevelopment())
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "GeoLearn API V1");
-    c.RoutePrefix = string.Empty;
-});
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+;
 
 app.UseHttpsRedirection();
 
-app.UseCors("DefaultPolicy");
-
-app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
