@@ -1,3 +1,5 @@
+using GeoLearn.Domain.ValueObjects;
+
 namespace GeoLearn.Domain.Entities;
 
 public class User : BaseEntity
@@ -20,6 +22,7 @@ public class User : BaseEntity
     public string? Cpf { get; private set; }
     public Address? Adress { get; set; }
     public string PasswordHash { get; private set; }
+    public int ExpericenPoints { get; private set; }
     
     public void UpdateDetails(string? firstName, string? lastName, string? email, string? biography, string? personImage, string? phone, string? cpf, Address? address)
     {
@@ -32,6 +35,11 @@ public class User : BaseEntity
         if (!string.IsNullOrEmpty(cpf)) Cpf = cpf;
         if (address != null) Adress = address;
         SetDateUpdate();
+    }
+
+    public void AddPointsForUser(int pointsWon)
+    {
+        ExpericenPoints += pointsWon;
     }
     
 }
