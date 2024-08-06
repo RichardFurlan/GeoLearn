@@ -11,10 +11,21 @@ public class UserRepository : IUserRepository
     {
         _dbContext = dbContext;
     }
-    public async Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash)
+    public async Task<User?> GetUserByEmailAndPasswordAsync(string email, string passwordHash)
     {
         return await _dbContext
             .Users
             .SingleOrDefaultAsync(u => u.Email == email && u.PasswordHash == passwordHash);
+    }
+
+    public Task<User?> GetByIdAsync(int id)
+    {
+        return _dbContext.Users.SingleOrDefaultAsync(u => u.Id == id);
+    }
+
+    public async Task UpdateAsync(User user)
+    {
+        _dbContext.Users.Update(user);
+        await _dbContext.SaveChangesAsync();
     }
 }
