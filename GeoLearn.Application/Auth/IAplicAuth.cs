@@ -1,9 +1,10 @@
 using GeoLearn.Application.Auth.DTO;
+using GeoLearn.Application.DTO;
 
 namespace GeoLearn.Application.Auth;
 
 public interface IAplicAuth
 {
-    Task<int> RegisterUser(RegisterUserDTO registerUserDto);
-    Task<LoginUserViewModel> LoginUser(LoginUserDTO loginUserDto);
+    Task<ResultViewModel<int>> RegisterUser(RegisterUserDTO registerUserDto);
+    Task<ResultViewModel<LoginUserViewModel>> LoginUser(LoginUserDTO loginUserDto);
 }

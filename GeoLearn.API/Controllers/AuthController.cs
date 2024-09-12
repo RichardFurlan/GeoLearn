@@ -21,8 +21,8 @@ public class AuthController : ControllerBase
     {
         try
         {
-            var userId = await _aplicAuth.RegisterUser(dto);
-            return Ok(userId);
+            var result = await _aplicAuth.RegisterUser(dto);
+            return Ok(result);
         }
         catch (Exception e)
         {
@@ -36,13 +36,13 @@ public class AuthController : ControllerBase
     {
         try
         {
-           var loginUserViewModel = await _aplicAuth.LoginUser(dto);
-           if (loginUserViewModel == null)
+           var result = await _aplicAuth.LoginUser(dto);
+           if (!result.IsSuccess)
            {
-               BadRequest();
+               return BadRequest(result.Message);
            }
 
-           return Ok(loginUserViewModel);
+           return Ok(result);
         }
         catch (Exception e)
         {

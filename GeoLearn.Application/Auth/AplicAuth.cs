@@ -1,4 +1,5 @@
 using GeoLearn.Application.Auth.DTO;
+using GeoLearn.Application.DTO;
 using GeoLearn.Domain.Entities;
 using GeoLearn.Domain.Repositories;
 using GeoLearn.Domain.Services;
@@ -18,7 +19,7 @@ public class AplicAuth : IAplicAuth
         _authService = authService;
         _dbContext = dbContext;
     }
-    public async Task<int> RegisterUser(RegisterUserDTO registerUserDto)
+    public async Task<ResultViewModel<int>> RegisterUser(RegisterUserDTO registerUserDto)
     {
         _authService.ValidarSenha(registerUserDto.Password, registerUserDto.PasswordConfirm);
         var passwordHash = _authService.ComputeSha256Hash(registerUserDto.Password);
@@ -33,10 +34,10 @@ public class AplicAuth : IAplicAuth
         await _dbContext.Users.AddAsync(user);
         await _dbContext.SaveChangesAsync();
 
-        return user.Id;
+        return ResultViewModel<int>.Success(user.Id);
     }
     
-    public async Task<LoginUserViewModel> LoginUser(LoginUserDTO loginUserDto)
+    public async Task<ResultViewModel<LoginUserViewModel>> LoginUser(LoginUserDTO loginUserDto)
     {
         var passwordHash = _authService.ComputeSha256Hash(loginUserDto.Password);
 
@@ -44,11 +45,11 @@ public class AplicAuth : IAplicAuth
         
         if (user == null)
         {
-            return null;
+            return ResultViewModel<LoginUserViewModel>.Error("E-mail ou senha incorretos, tente novamente.");
         }
 
         var token = _authService.GenerateJwtToken(user.Email);
 
-        return new LoginUserViewModel(user.Email, token);
+        return ResultViewModel<LoginUserViewModel>.Success(new LoginUserViewModel(user.Email, token));
     }
 }
