@@ -10,12 +10,14 @@ public class QuizOptionAnswerConfigurations : IEntityTypeConfiguration<QuizOptio
     {
         builder.HasKey(qoa => qoa.Id);
 
-        builder.HasOne<QuizAnswer>()
+        builder.HasOne(qoa => qoa.QuizAnswer)  // Relacionamento explícito
             .WithMany(qa => qa.QuizOptionAnswers)
-            .HasForeignKey(qoa => qoa.QuizAnswerId);
+            .HasForeignKey(qoa => qoa.QuizAnswerId)
+            .OnDelete(DeleteBehavior.Cascade);  // Comportamento ao deletar
         
-        builder.HasOne<QuizOption>()
-            .WithMany(qa => qa.QuizOptionAnswers)
-            .HasForeignKey(qoa => qoa.QuizOptionId);
+        builder.HasOne(qoa => qoa.QuizOption)  // Relacionamento explícito
+            .WithMany(qo => qo.QuizOptionAnswers)
+            .HasForeignKey(qoa => qoa.QuizOptionId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
