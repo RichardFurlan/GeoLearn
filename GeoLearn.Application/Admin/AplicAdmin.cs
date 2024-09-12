@@ -1,4 +1,5 @@
 using GeoLearn.Application.Admin.DTO;
+using GeoLearn.Application.DTO;
 using GeoLearn.Domain.Entities;
 using GeoLearn.Domain.Repositories;
 using GeoLearn.Domain.Services;
@@ -63,7 +64,7 @@ public class AplicAdmin : IAplicAdmin
     #endregion
 
     #region GetAllQuizzes
-    public async Task<List<QuizViewModel>> GetAllQuizzes()
+    public async Task<ResultViewModel<List<QuizViewModel>>> GetAllQuizzes()
     {
         var quizzes = await _dbContext.Quizzes
             .Include(q => q.Questions)
@@ -76,7 +77,7 @@ public class AplicAdmin : IAplicAdmin
             q.Category
         )).ToList();
         
-        return quizzesViewModel;
+        return ResultViewModel<List<QuizViewModel>>.Success(quizzesViewModel);
     }
     
 

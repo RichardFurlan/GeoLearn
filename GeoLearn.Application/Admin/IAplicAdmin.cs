@@ -1,10 +1,11 @@
 using GeoLearn.Application.Admin.DTO;
+using GeoLearn.Application.DTO;
 
 namespace GeoLearn.Application.Admin;
 
 public interface IAplicAdmin
 {
-    Task<List<QuizViewModel>> GetAllQuizzes();
+    Task<ResultViewModel<List<QuizViewModel>>> GetAllQuizzes();
     Task<QuizViewModel> GetQuiz(int id);
     Task<QuizQuestionViewModel> GetQuizQuestion(int id);
     Task<int> CreateQuiz(CreateQuizDTO dto);
