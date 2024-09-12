@@ -25,7 +25,7 @@ public class AplicAdmin : IAplicAdmin
     #region QUIZ
 
     #region CreateQuizQuestion
-    public async Task<int> CreateQuizQuestion(CreateQuizQuestionDTO dto)
+    public async Task<ResultViewModel<int>> CreateQuizQuestion(CreateQuizQuestionDTO dto)
     {
         var quiz = await _quizRepository.GetDetailsByIdAsync(dto.QuizId);
         if (quiz == null)
@@ -47,19 +47,19 @@ public class AplicAdmin : IAplicAdmin
         _dbContext.QuizQuestions.Add(quizQuestion);
         await _dbContext.SaveChangesAsync();
         
-        return quizQuestion.Id;
+        return ResultViewModel<int>.Success(quizQuestion.Id);
     }
     #endregion
 
     #region CreateQuiz
-    public async Task<int> CreateQuiz(CreateQuizDTO dto)
+    public async Task<ResultViewModel<int>> CreateQuiz(CreateQuizDTO dto)
     {
         var quiz = new Domain.Entities.Quiz(dto.Title, dto.Description, dto.Category);
         
         await _dbContext.Quizzes.AddAsync(quiz);
         await _dbContext.SaveChangesAsync();
 
-        return quiz.Id;
+        return ResultViewModel<int>.Success(quiz.Id);
     }
     #endregion
 
@@ -84,7 +84,7 @@ public class AplicAdmin : IAplicAdmin
     #endregion
     
     #region GetQuiz
-    public async Task<QuizViewModel> GetQuiz(int id)
+    public async Task<ResultViewModel<QuizViewModel>> GetQuiz(int id)
     {
         var quiz = await _dbContext.Quizzes
             .Include(q => q.Questions)
@@ -102,12 +102,12 @@ public class AplicAdmin : IAplicAdmin
             quiz.Category
         );
 
-        return quizViewModel;
+        return ResultViewModel<QuizViewModel>.Success(quizViewModel);
     }
     #endregion
 
     #region GetQuizQuestion
-    public async Task<QuizQuestionViewModel> GetQuizQuestion(int id)
+    public async Task<ResultViewModel<QuizQuestionViewModel>> GetQuizQuestion(int id)
     {
         var quizQuestion = await _dbContext.QuizQuestions
             .Include(qq => qq.Options)
@@ -128,14 +128,14 @@ public class AplicAdmin : IAplicAdmin
             )).ToList()
         );
 
-        return quizQuestionViewModel;
+        return ResultViewModel<QuizQuestionViewModel>.Success(quizQuestionViewModel);
     }
     
 
     #endregion
 
     #region UpdateQuiz
-    public async Task UpdateQuiz(int id, UpdateQuizDTO dto)
+    public async Task<ResultViewModel> UpdateQuiz(int id, UpdateQuizDTO dto)
     {
         var quiz = await _quizRepository.GetDetailsByIdAsync(id);
 
@@ -147,11 +147,13 @@ public class AplicAdmin : IAplicAdmin
         quiz.UpdateDetails(dto.Title, dto.Description, dto.Category);
 
         await _quizRepository.UpdateAsync(quiz);
+
+        return ResultViewModel.Success();
     }
     #endregion
     
     #region InactivateQuiz
-    public async Task InactivateQuiz(int id)
+    public async Task<ResultViewModel> InactivateQuiz(int id)
     {
         var quiz = await _quizRepository.GetDetailsByIdAsync(id);
         if (quiz == null)
@@ -162,6 +164,8 @@ public class AplicAdmin : IAplicAdmin
         quiz.Inativar();
 
         await _quizRepository.UpdateAsync(quiz);
+        
+        return ResultViewModel.Success();
     }
     
 
@@ -173,7 +177,7 @@ public class AplicAdmin : IAplicAdmin
     #region USER
 
     #region GetAllUsers
-    public async Task<List<UserViewModel>> GetAllUsers()
+    public async Task<ResultViewModel<List<UserViewModel>>> GetAllUsers()
     {
         var user = await _dbContext.Users.
             Include(user => user.Adress)
@@ -189,12 +193,12 @@ public class AplicAdmin : IAplicAdmin
             u.Adress
         )).ToList();
 
-        return userViewModel;
+        return ResultViewModel<List<UserViewModel>>.Success(userViewModel);
     }
     #endregion
     
     #region GetUser
-    public async Task<UserViewModel> GetUser(int id)
+    public async Task<ResultViewModel<UserViewModel>> GetUser(int id)
     {
         var user = await _dbContext.Users
             .Include(u => u.Adress)
@@ -208,12 +212,12 @@ public class AplicAdmin : IAplicAdmin
         var userViewModel = new UserViewModel(user.FirstName, user.LastName, user.Email, user.Biography,
             user.PersonImage, user.Phone, user.Adress);
         
-        return userViewModel;
+        return ResultViewModel<UserViewModel>.Success(userViewModel);
     }
     #endregion
 
     #region CreateUser
-    public async Task<int> CreateUser(CreateUserDTO dto)
+    public async Task<ResultViewModel<int>> CreateUser(CreateUserDTO dto)
     {
         _authService.ValidarSenha(dto.Password, dto.PasswordConfirm);
         var passwordHash = _authService.ComputeSha256Hash(dto.Password);
@@ -228,12 +232,12 @@ public class AplicAdmin : IAplicAdmin
         await _dbContext.Users.AddAsync(user);
         await _dbContext.SaveChangesAsync();
 
-        return user.Id;
+        return ResultViewModel<int>.Success(user.Id);
     }
     #endregion
 
     #region UpdateUser
-    public async Task UpdateUser(UpdateUserDTO dto)
+    public async Task<ResultViewModel> UpdateUser(UpdateUserDTO dto)
     {
         var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Id == dto.Id);
         
@@ -254,11 +258,13 @@ public class AplicAdmin : IAplicAdmin
         
         _dbContext.Users.Update(user);
         await _dbContext.SaveChangesAsync();
+
+        return ResultViewModel.Success();
     }
     #endregion
     
     #region InactivateUser
-    public async Task InactivateUser(int id)
+    public async Task<ResultViewModel> InactivateUser(int id)
     {
         var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Id == id);
         if (user == null)
@@ -270,6 +276,8 @@ public class AplicAdmin : IAplicAdmin
 
         _dbContext.Users.Update(user);
         await _dbContext.SaveChangesAsync();
+        
+        return ResultViewModel.Success();
     }
     #endregion
     
