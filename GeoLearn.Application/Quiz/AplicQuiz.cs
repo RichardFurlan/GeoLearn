@@ -1,4 +1,5 @@
 using System.Transactions;
+using GeoLearn.Application.DTO;
 using GeoLearn.Application.Quiz.DTO;
 using GeoLearn.Domain.Entities;
 using GeoLearn.Domain.Repositories;
@@ -19,7 +20,7 @@ public class AplicQuiz : IAplicQuiz
         _quizAnswerRepository = quizAnswerRepository;
     }
 
-    public async Task<List<QuizViewModel>> GetAllQuizzes()
+    public async Task<ResultViewModel<List<QuizViewModel>>> GetAllQuizzes()
     {
         var quizzes = await _quizRepository.GetAllQuizzes().ToListAsync();
         
@@ -29,10 +30,10 @@ public class AplicQuiz : IAplicQuiz
             q.Category
         )).ToList();
         
-        return quizzesViewModel;
+        return ResultViewModel<List<QuizViewModel>>.Success(quizzesViewModel);
     }
 
-    public async Task<QuizDetailsViewModel> GetQuizById(int id)
+    public async Task<ResultViewModel<QuizDetailsViewModel>> GetQuizById(int id)
     {
         var quiz = await _quizRepository.GetDetailsByIdAsync(id);
         
@@ -56,10 +57,10 @@ public class AplicQuiz : IAplicQuiz
             )).ToList()
         );
 
-        return quizDetailsViewModel;
+        return ResultViewModel<QuizDetailsViewModel>.Success(quizDetailsViewModel);
     }
 
-    public async Task<SubmitAnswerResultViewModel> SubmitAnswer(SubmitAnswerDTO dto)
+    public async Task<ResultViewModel<SubmitAnswerResultViewModel>> SubmitAnswer(SubmitAnswerDTO dto)
     {
         if (dto.SelectedOptionIds == null || !dto.SelectedOptionIds.Any())
         {
@@ -116,10 +117,10 @@ public class AplicQuiz : IAplicQuiz
             await _quizAnswerRepository.SaveAnswerAsync(quizAnswer);
             transaction.Complete();
         }
-        
-        return new SubmitAnswerResultViewModel(
+
+        return ResultViewModel<SubmitAnswerResultViewModel>.Success(new SubmitAnswerResultViewModel(
             totalPointsWon,
             questionsResult
-        );
+        ));
     }
 }
