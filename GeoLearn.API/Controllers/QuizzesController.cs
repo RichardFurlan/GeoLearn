@@ -1,3 +1,5 @@
+using GeoLearn.Application.Quiz;
+using GeoLearn.Application.Quiz.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeoLearn.Api.Controllers;
@@ -5,21 +7,30 @@ namespace GeoLearn.Api.Controllers;
 [Route("api/[controller]")]
 public class QuizzesController : ControllerBase
 {
-    [HttpGet]
-    public IActionResult GetAllQuizzes()
+    private readonly IAplicQuiz _aplicQuiz;
+    public QuizzesController(IAplicQuiz aplicQuiz)
     {
-        return Ok();
+        _aplicQuiz = aplicQuiz;
+    }
+    [HttpGet]
+    public async Task<IActionResult> GetAllQuizzes()
+    {
+        var result = await _aplicQuiz.GetAllQuizzes();
+        
+        return Ok(result);
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetQuiz(int id)
+    public async Task<IActionResult> GetQuiz(int id)
     {
-        return Ok();
+        var result =  await _aplicQuiz.GetQuizById(id);
+        return Ok(result);
     }
 
     [HttpPost("{id}/answer")]
-    public IActionResult SubmitQuizAnswers()
+    public async Task<IActionResult> SubmitQuizAnswers(SubmitAnswerDTO dto)
     {
-        return Ok();
+        var result = await _aplicQuiz.SubmitAnswer(dto);
+        return Ok(result);
     }
 }
